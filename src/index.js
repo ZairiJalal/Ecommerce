@@ -1,17 +1,20 @@
+import { Preloader } from './components/common';
+import 'normalize.css/normalize.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
+import 'react-phone-input-2/lib/style.css';
+import { onAuthStateFail, onAuthStateSuccess } from './redux/actions/authActions';
+import configureStore from './redux/store/store';
+import './styles/style.scss';
+import WebFont from 'webfontloader';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import firebase from './services/firebase';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import ReactDOM from 'react-dom';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const { store, persistor } = configureStore();
+const root = document.getElementById('app');
+
+render(<Preloader />, root);
+render(<App store={store} persistor={persistor} />, root);
+
